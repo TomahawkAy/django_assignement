@@ -1,0 +1,161 @@
+{% extends 'Base/base.html' %}
+{% load static %}
+{% block top-page-title %}
+    <h1 class="h1-seo animated bounceInUp">Projects section</h1>
+    <h3>Manage all your academic projects and keep track with your progress</h3>
+{% endblock %}
+{% block content %}
+    <div class="section section-tabs">
+        <div class="container">
+            <div class="row">
+                {% include 'Project/project-form.html' %}
+                {% for project in projects %}
+                    {% if forloop.counter|divisibleby:2 %}
+                        <div class="col-md-6 ml-auto col-xl-6 mr-auto animated slideInRight">
+                    {% else %}
+                        <div class="col-md-6 ml-auto col-xl-6 mr-auto animated slideInLeft">
+                    {% endif %}
+                <div class="mb-3">
+                    <small class="text-uppercase font-weight-bold"></small>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#project{{ project.id }}"
+                                   role="tablist">
+                                    <i class="tim-icons icon-spaceship"></i> Project
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#creator{{ project.id }}" role="tablist">
+                                    <i class="tim-icons icon-settings-gear-63"></i> Creator
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#coach{{ project.id }}" role="tablist">
+                                    <i class="tim-icons icon-bag-16"></i> Coach
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link "  href="{% url 'delete_project' id=project.id %}" style="background-color: red"
+                                   role="tablist">
+                                    <i class="tim-icons icon-simple-remove"></i> Delete
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <!-- Tab panes -->
+                        <div class="tab-content tab-space">
+                            <div class="tab-pane active" id="project{{ project.id }}">
+                                <table style="border-collapse:separate;border-spacing:1.5em;">
+                                    <tr>
+                                        <td style="min-width: 100px"><span
+                                                style="color: #00e676;">Name :</span>
+                                        </td>
+                                        <td>{{ project.project_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="min-width: 100px"><span
+                                                style="color: #00e5ff;">Description :</span></td>
+                                        <td>{{ project.description }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="min-width: 150px"><span style="color: #ff8f00;">
+                                                Duration  :</span>
+                                        </td>
+                                        <td><img src="{% static 'img/clock.gif' %}"
+                                                 style="max-width: 35px;max-height: 35px;">
+                                            &nbsp;{{ project.project_duration }} Minutes
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="min-width: 150px"><span style="color: #ffeb3b">
+                                                Needs  :</span>
+                                        </td>
+                                        <td>{% for need in project.split_needs_into_array %}
+                                            {% if need != "this project needs python 3.8 " %}
+                                                <a href="javascript:void(0)"
+                                                   class="badge badge-info">{{ need }}&nbsp;</a>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="creator{{ project.id }}">
+                                <table style="border-collapse:separate;border-spacing:1.5em;">
+                                    <tr>
+                                        <td style="min-width: 100px"><span
+                                                style="color: #00e676;">Full name :</span>
+                                        </td>
+                                        <td>{{ project.creator.first_name }} {{ project.creator.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="min-width: 100px"><span
+                                                style="color: #00e5ff;">Email :</span></td>
+                                        <td>{{ project.creator.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="min-width: 150px"><span style="color: #ff8f00;">
+                                                Username  :</span>
+                                        </td>
+                                        <td>
+                                            {{ project.creator.username }}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="coach{{ project.id }}">
+                                <table style="border-collapse:separate;border-spacing:1.5em;">
+                                    <tr>
+                                        <td style="min-width: 100px"><span
+                                                style="color: #00e676;">Full name :</span>
+                                        </td>
+                                        <td>{{ project.supervisor.first_name }} {{ project.supervisor.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="min-width: 100px"><span
+                                                style="color: #00e5ff;">Email :</span></td>
+                                        <td>{{ project.supervisor.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="min-width: 150px"><span style="color: #ff8f00;">
+                                                Username  :</span>
+                                        </td>
+                                        <td>
+                                            {{ project.supervisor.username }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="min-width: 150px"><span style="color: #e57373;">
+                                                created projects  :</span>
+                                        </td>
+                                        <td>
+                                            {{ project.supervisor.project_coach.count }}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="ml-auto col-xl-6 mr-auto">
+                        <button class="btn btn-warning" id="newProjectButton" data-toggle="modal"
+                                data-target="#myModal2">Create new project
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        {% block extra-js %}
+            <script src="{% static 'js/internal/project.js' %}">
+        {% endblock %}
+{% endblock %}

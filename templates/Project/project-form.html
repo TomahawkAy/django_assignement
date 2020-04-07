@@ -1,0 +1,117 @@
+<!-- Form Modal -->
+<div class="modal fade modal-black" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="tim-icons icon-simple-remove text-white"></i>
+                </button>
+                <div class="text-muted text-center ml-auto mr-auto">
+                    <h3 class="mb-0">Project form</h3>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form role="form" action="{% url 'create' %}" method="post">
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                      <span class="input-group-text">
+                         <i class="tim-icons icon-user-run"></i>
+                      </span>
+                            </div>
+                            {{ form.project_name }}
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="tim-icons icon-time-alarm"></i>
+                      </span>
+                            </div>
+                            {{ form.project_duration }}
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="tim-icons icon-watch-time"></i>
+                      </span>
+                            </div>
+                            {{ form.time_allocated_by_creator }}
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="tim-icons icon-alert-circle-exc"></i>
+                      </span>
+                            </div>
+                            {{ form.needs }}
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="tim-icons icon-pencil"></i>
+                      </span>
+                            </div>
+                            {{ form.description }}
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="tim-icons icon-check-2"></i>
+                      </span>
+                            </div>
+                            {{ form.validity_state }}
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="tim-icons icon-atom"></i>
+                      </span>
+                            </div>
+                            {{ form.creator }}
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="tim-icons icon-settings"></i>
+                      </span>
+                            </div>
+                            {{ form.supervisor }}
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="tim-icons icon-bus-front-12"></i>
+                      </span>
+                            </div>
+                            {{ form.members }}
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary my-4">Sign in</button>
+                    </div>
+                    {{ form.errors }}
+                    {{ form.non_field_errors }}
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  End Modal -->

@@ -1,0 +1,71 @@
+{% extends 'Base/base.html' %}
+{% load static %}
+{% block top-page-title %}
+    <h1 class="h1-seo animated bounceInUp">Memberships</h1>
+    <h3>Manage all the students projects memberships </h3>
+{% endblock %}
+{% block content %}
+    <div class="section section-tabs">
+        <div class="container">
+            <div class="row">
+                {% include 'Project-membership/membership-form.html' %}
+                {% for project in projects %}
+                    <div class="col-md-6 ml-auto col-xl-6 mr-auto animated slideInRight">
+                        <div class="mb-3">
+                            <small class="text-uppercase font-weight-bold"></small>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 style="text-align: center">{{ project.project_name }}</h3>
+                            </div>
+                            <div class="card-body">
+                                <!-- Tab panes -->
+                                <div class="tab-content tab-space">
+                                    <div class="tab-pane active" id="project{{ project.id }}">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center">Student</th>
+                                                <th>Role</th>
+                                                <th>Allocated time</th>
+                                                <th class="text-right">Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for membership in project.membershipinproject_set.all %}
+                                                <tr>
+                                                    <td class="text-center">{{ membership.student.first_name }} {{ membership.student.last_name }}</td>
+                                                    <td>{% if project.creator == membership.student %}
+                                                        Creator
+                                                    {% else %}
+                                                        subscriber
+                                                    {% endif %}</td>
+                                                    <td>{{ membership.allocated_time_per_member }}</td>
+                                                    <td class="td-actions text-right">
+                                                        <a rel="tooltip"
+                                                           href="{% url 'delete-membership' project_id=project.id student_id=membership.student.id %}"
+                                                           class="btn btn-danger btn-sm btn-icon">
+                                                            <i class="tim-icons icon-simple-remove"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="ml-auto col-xl-6 mr-auto" style="text-align: center">
+                    <button class="btn btn-warning" id="newProjectButton" data-toggle="modal"
+                            data-target="#myModal2">Create new membership
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

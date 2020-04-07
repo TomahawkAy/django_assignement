@@ -1,0 +1,58 @@
+<!-- Form Modal -->
+<div class="modal fade modal-black" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="tim-icons icon-simple-remove text-white"></i>
+                </button>
+                <div class="text-muted text-center ml-auto mr-auto">
+                    <h3 class="mb-0">membership form</h3>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form role="form" action="{% url 'memberships-index' %}" method="post">
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="tim-icons icon-watch-time"></i>
+                      </span>
+                            </div>
+                            {{ form.allocated_time_per_member }}
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="tim-icons icon-atom"></i>
+                      </span>
+                            </div>
+                            {{ form.project }}
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="tim-icons icon-settings"></i>
+                      </span>
+                            </div>
+                            {{ form.student }}
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary my-4">Validate</button>
+                    </div>
+                    {{ form.errors }}
+                    {{ form.non_field_errors }}
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  End Modal -->
